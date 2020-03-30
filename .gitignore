@@ -1,0 +1,8 @@
+/vendor
+/.idea
+/.vscode
+/nbproject
+yarn-error.log
+.env
+.phpunit.result.cache
+.php_cs.cache

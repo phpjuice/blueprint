@@ -1,0 +1,36 @@
+{
+  "crud": {
+    "name": "{{crud.name}}",
+    "namespace": "{{crud.namespace}}",
+    "isApi": {{crud.isApi}}
+  },
+  "controller": {
+    "name": "{{controller.name}}",
+    "pagination": 10,
+    "validations": []
+  },
+  "model": {
+    "name": "{{model.name}}",
+    "fillable": "",
+    "hidden": "",
+    "softDeletes": false,
+    "relationships": []
+  },
+  "table": {
+    "name": "{{table.name}}",
+    "schema": {
+      "fields": [],
+      "keys": {
+        "primary": "id",
+        "foreign": [],
+        "indexes": []
+      },
+      "softDeletes": false
+    }
+  },
+  "route": {
+    "name": "{{route.name}}",
+    "url": "{{route.url}}",
+    "middlewares": []
+  }
+}

@@ -1,0 +1,75 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyRootNamespaceModels\{{modelNamespace}}\{{modelName}};
+use DummyRootNamespaceHttp\Controllers\Controller;
+use DummyRootNamespaceHttp\Resources\{{modelNamespace}}\{{modelName}}Resource;
+use DummyRootNamespaceHttp\Requests\{{modelNamespace}}\{{modelName}}Request as StoreRequest;
+use DummyRootNamespaceHttp\Requests\{{modelNamespace}}\{{modelName}}Request as UpdateRequest;
+use Illuminate\Http\Request;
+
+class DummyClass extends Controller
+{
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function index(Request $request)
+  {
+    $per_page = $request->has('per_page') ? (int) $request->get('per_page') : {{pagination}};
+    return {{modelName}}Resource::collection({{modelName}}::paginate($per_page));
+  }
+
+  /**
+   * Store a newly created resource in storage.
+   *
+   * @param  StoreRequest  $request
+   * @return \Illuminate\Http\Response
+   */
+  public function store(StoreRequest $request)
+  {
+    return new {{modelName}}Resource({{modelName}}::create($request->validated()));
+  }
+
+  /**
+   * Display the specified resource.
+   *
+   * @param Request $request
+   * @param  {{modelName}}  ${{modelNameSingular}}
+   * @return \Illuminate\Http\Response
+   */
+  public function show(Request $request, {{modelName}} ${{modelNameSingular}})
+  {
+    return new {{modelName}}Resource(${{modelNameSingular}});
+  }
+
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  UpdateRequest $request
+   * @param  {{modelName}}  ${{modelNameSingular}}
+   * @return \Illuminate\Http\Response
+   */
+  public function update(UpdateRequest $request, {{modelName}} ${{modelNameSingular}})
+  {
+    ${{modelNameSingular}}->fill($request->validated());
+    ${{modelNameSingular}}->save();
+    return new {{modelName}}Resource(${{modelNameSingular}});
+  }
+
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param Request $request
+   * @param  {{modelName}}  ${{modelNameSingular}}
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy(Request $request, {{modelName}} ${{modelNameSingular}})
+  {
+    $deletedModel = ${{modelNameSingular}};
+    ${{modelNameSingular}}->delete();
+    return new {{modelName}}Resource(${{modelNameSingular}});
+  }
+}
