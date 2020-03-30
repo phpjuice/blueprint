@@ -1,10 +1,8 @@
 # Blueprint
 
-[![Blueprint](https://img.shields.io/badge/Blueprint-crud-blue.svg?style=flat-square)](https://packagist.org/packages/phpjuice/blueprint)
-[![Latest Stable Version](https://poser.pugx.org/phpjuice/blueprint/v/stable?format=flat-square)](https://packagist.org/packages/phpjuice/blueprint)
-[![Total Downloads](https://img.shields.io/packagist/dt/phpjuice/blueprint.svg?style=flat-square)](https://packagist.org/packages/phpjuice/blueprint)
-[![StyleCI](https://github.styleci.io/repos/160396575/shield?branch=master)](https://github.styleci.io/repos/160396575)
-[![GitHub](https://img.shields.io/github/license/phpjuice/blueprint.svg?style=flat-square)](https://github.com/PHPJuice/Blueprint/blob/master/LICENSE)
+[![Latest Stable Version](https://poser.pugx.org/phpjuice/blueprint/v/stable)](https://packagist.org/packages/phpjuice/blueprint)
+[![Total Downloads](https://poser.pugx.org/phpjuice/blueprint/downloads)](https://packagist.org/packages/phpjuice/blueprint)
+[![License](https://poser.pugx.org/phpjuice/blueprint/license)](https://packagist.org/packages/phpjuice/blueprint)
 
 Blueprint is a powerful CRUD generator to speed up the development of your laravel apps.
 
@@ -87,40 +85,40 @@ And here is a basic strucure for a blueprint json file,following laravel's namin
 
 ```json
 {
-  "crud": {
-    "name": "Post",
-    "namespace": "Posts",
-    "isApi": true
-  },
-  "controller": {
-    "name": "PostsController",
-    "pagination": 10,
-    "validations": []
-  },
-  "model": {
-    "name": "Post",
-    "fillable": "",
-    "hidden": "",
-    "softDeletes": false,
-    "relationships": []
-  },
-  "table": {
-    "name": "posts",
-    "schema": {
-      "fields": [],
-      "keys": {
-        "primary": "id",
-        "foreign": [],
-        "indexes": []
-      },
-      "softDeletes": false
+    "crud": {
+        "name": "Post",
+        "namespace": "Posts",
+        "isApi": true
+    },
+    "controller": {
+        "name": "PostsController",
+        "pagination": 10,
+        "validations": []
+    },
+    "model": {
+        "name": "Post",
+        "fillable": "",
+        "hidden": "",
+        "softDeletes": false,
+        "relationships": []
+    },
+    "table": {
+        "name": "posts",
+        "schema": {
+            "fields": [],
+            "keys": {
+                "primary": "id",
+                "foreign": [],
+                "indexes": []
+            },
+            "softDeletes": false
+        }
+    },
+    "route": {
+        "name": "posts",
+        "url": "posts",
+        "middlewares": []
     }
-  },
-  "route": {
-    "name": "posts",
-    "url": "posts",
-    "middlewares": []
-  }
 }
 ```
 
@@ -142,12 +140,12 @@ php artisan blueprint:generate Post
 
 After running this command a the following files will be generated :
 
-- Controller
-- Model
-- Request
-- Response
-- Migration
-- Test
+-   Controller
+-   Model
+-   Request
+-   Response
+-   Migration
+-   Test
 
 And by default, the generator will attempt to append the crud route to your Route file. following this snippet
 `Route::apiResource('route-name', 'controller-name');`
@@ -164,84 +162,84 @@ php artisan migrate
 
 ```json
 {
-  "crud": {
-    "name": "Post",
-    "namespace": "Content",
-    "isApi": true
-  },
-  "controller": {
-    "name": "PostsController",
-    "namespace": "Content",
-    "pagination": 10,
-    "validations": [
-      {
-        "field": "title",
-        "rules": "required|min:5|unique:posts"
-      },
-      {
-        "field": "content",
-        "rules": "required|min:5"
-      }
-    ]
-  },
-  "model": {
-    "name": "Post",
-    "namespace": "Content",
-    "fillable": "title,content",
-    "hidden": "user_id",
-    "softDeletes": true,
-    "relationships": [
-      {
-        "name": "user",
-        "type": "belongsTo",
-        "class": "App\\User"
-      }
-    ]
-  },
-  "table": {
-    "name": "posts",
-    "schema": {
-      "fields": [
-        {
-          "name": "title",
-          "type": "string"
-        },
-        {
-          "name": "content",
-          "type": "text"
-        }
-      ],
-      "keys": {
-        "primary": "id",
-        "foreign": [
-          {
-            "column": "user_id",
-            "references": "id",
-            "on": "users",
-            "onDelete": "cascade",
-            "onUpdate": "cascade"
-          }
-        ],
-        "indexes": [
-          {
-            "field": "title",
-            "type": "unique"
-          },
-          {
-            "field": "title",
-            "type": "index"
-          }
+    "crud": {
+        "name": "Post",
+        "namespace": "Content",
+        "isApi": true
+    },
+    "controller": {
+        "name": "PostsController",
+        "namespace": "Content",
+        "pagination": 10,
+        "validations": [
+            {
+                "field": "title",
+                "rules": "required|min:5|unique:posts"
+            },
+            {
+                "field": "content",
+                "rules": "required|min:5"
+            }
         ]
-      },
-      "softDeletes": true
+    },
+    "model": {
+        "name": "Post",
+        "namespace": "Content",
+        "fillable": "title,content",
+        "hidden": "user_id",
+        "softDeletes": true,
+        "relationships": [
+            {
+                "name": "user",
+                "type": "belongsTo",
+                "class": "App\\User"
+            }
+        ]
+    },
+    "table": {
+        "name": "posts",
+        "schema": {
+            "fields": [
+                {
+                    "name": "title",
+                    "type": "string"
+                },
+                {
+                    "name": "content",
+                    "type": "text"
+                }
+            ],
+            "keys": {
+                "primary": "id",
+                "foreign": [
+                    {
+                        "column": "user_id",
+                        "references": "id",
+                        "on": "users",
+                        "onDelete": "cascade",
+                        "onUpdate": "cascade"
+                    }
+                ],
+                "indexes": [
+                    {
+                        "field": "title",
+                        "type": "unique"
+                    },
+                    {
+                        "field": "title",
+                        "type": "index"
+                    }
+                ]
+            },
+            "softDeletes": true
+        }
+    },
+    "route": {
+        "name": "posts",
+        "namespace": "Posts",
+        "url": "posts",
+        "middlewares": []
     }
-  },
-  "route": {
-    "name": "posts",
-    "namespace": "Posts",
-    "url": "posts",
-    "middlewares": []
-  }
 }
 ```
 
@@ -259,14 +257,12 @@ If you discover any security related issues, please email author instead of usin
 
 ## Credits
 
-- [AppzCoder](https://github.com/appzcoder/crud-generator)
+-   [AppzCoder](https://github.com/appzcoder/crud-generator)
 
 ## License
 
 license. Please see the [license file](LICENCE) for more information.
 
-[![Blueprint](https://img.shields.io/badge/Blueprint-crud-blue.svg?style=flat-square)](https://packagist.org/packages/phpjuice/blueprint)
-[![Latest Stable Version](https://poser.pugx.org/phpjuice/blueprint/v/stable?format=flat-square)](https://packagist.org/packages/phpjuice/blueprint)
-[![Total Downloads](https://img.shields.io/packagist/dt/phpjuice/blueprint.svg?style=flat-square)](https://packagist.org/packages/phpjuice/blueprint)
-[![StyleCI](https://github.styleci.io/repos/160396575/shield?branch=master)](https://github.styleci.io/repos/160396575)
-[![GitHub](https://img.shields.io/github/license/phpjuice/blueprint.svg?style=flat-square)](https://github.com/PHPJuice/Blueprint/blob/master/LICENSE)
+[![Latest Stable Version](https://poser.pugx.org/phpjuice/blueprint/v/stable)](https://packagist.org/packages/phpjuice/blueprint)
+[![Total Downloads](https://poser.pugx.org/phpjuice/blueprint/downloads)](https://packagist.org/packages/phpjuice/blueprint)
+[![License](https://poser.pugx.org/phpjuice/blueprint/license)](https://packagist.org/packages/phpjuice/blueprint)
