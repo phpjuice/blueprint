@@ -2,6 +2,8 @@
 
 namespace PHPJuice\Blueprint\Commands;
 
+use Illuminate\Support\Str;
+
 class BlueprintControllerApiCommand extends Generator
 {
     /**
@@ -71,7 +73,7 @@ class BlueprintControllerApiCommand extends Generator
      */
     protected function replaceModelNameSingular(&$stub)
     {
-        $modelNameSingular = snake_case(str_singular($this->getModelName()));
+        $modelNameSingular = Str::snake(Str::singular($this->getModelName()));
         $stub = str_replace('{{modelNameSingular}}', $modelNameSingular, $stub);
 
         return $this;

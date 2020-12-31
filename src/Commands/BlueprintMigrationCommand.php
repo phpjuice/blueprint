@@ -69,7 +69,7 @@ class BlueprintMigrationCommand extends GeneratorCommand
     /**
      * The schema of the class being generated.
      *
-     * @var string
+     * @var array
      */
     protected $schema;
 
@@ -111,7 +111,7 @@ class BlueprintMigrationCommand extends GeneratorCommand
         $stub = $this->files->get($this->getStub());
         // get table name
         $tableName = $this->argument('name');
-        // genreate table name
+        // generate table name
         $className = $this->generateClassName($tableName);
 
         // get schema
@@ -120,10 +120,10 @@ class BlueprintMigrationCommand extends GeneratorCommand
         // primary key
         $primaryKey = isset($this->schema['keys']['primary']) ? $this->schema['keys']['primary'] : 'id';
 
-        // build schema ouput
-        $schemaFields = $this->buildFieldsSegement();
-        $schemaFields .= $this->buildIndexesSegement();
-        $schemaFields .= $this->buildSoftDeletesSegement();
+        // build schema output
+        $schemaFields = $this->buildFieldsSegment();
+        $schemaFields .= $this->buildIndexesSegment();
+        $schemaFields .= $this->buildSoftDeletesSegment();
 
         return $this
             ->replaceTableName($stub, $tableName)
@@ -177,14 +177,14 @@ class BlueprintMigrationCommand extends GeneratorCommand
         return $this;
     }
 
-    protected function buildIndexesSegement()
+    protected function buildIndexesSegment()
     {
         $schema = $this->schema;
         if (isset($schema['keys']) && isset($schema['keys']['indexes'])) {
             // add indexes and unique indexes as necessary
             $uniqueFields = '';
             $indexFields = '';
-            $segement = '';
+            $segment = '';
             foreach ($schema['keys']['indexes'] as $index) {
                 $field = $index['field'];
                 if ('unique' === $index['type']) {
@@ -194,23 +194,23 @@ class BlueprintMigrationCommand extends GeneratorCommand
                 }
             }
             if ('' != $uniqueFields) {
-                $segement .= '$table->unique('.rtrim($uniqueFields, ',').");\n".$this->indent;
+                $segment .= '$table->unique('.rtrim($uniqueFields, ',').");\n".$this->indent;
             }
             if ('' != $indexFields) {
-                $segement .= '$table->index('.rtrim($indexFields, ',').");\n".$this->indent;
+                $segment .= '$table->index('.rtrim($indexFields, ',').");\n".$this->indent;
             }
 
-            return $segement;
+            return $segment;
         }
 
         return '';
     }
 
-    protected function buildFieldsSegement()
+    protected function buildFieldsSegment()
     {
         $schema = $this->schema;
         if (isset($schema['keys']) && isset($schema['keys']['indexes'])) {
-            $segement = '';
+            $segment = '';
             foreach ($schema['fields'] as $field) {
                 // check if present in the lockup table
                 if (isset($this->typeLookup[$field['type']])) {
@@ -221,12 +221,12 @@ class BlueprintMigrationCommand extends GeneratorCommand
                         $enumOptionsStr = implode(',', array_map(function ($string) {
                             return '"'.$string.'"';
                         }, $enumOptions));
-                        $segement .= '$table->'.$type."('".$field['name']."', [".$enumOptionsStr.'])';
+                        $segment .= '$table->'.$type."('".$field['name']."', [".$enumOptionsStr.'])';
                     } else {
-                        $segement .= '$table->'.$type."('".$field['name']."')";
+                        $segment .= '$table->'.$type."('".$field['name']."')";
                     }
                 } else {
-                    $segement .= "\$table->string('".$field['name']."')";
+                    $segment .= "\$table->string('".$field['name']."')";
                 }
                 // Append column modifier
                 $modifierLookup = [
@@ -237,18 +237,18 @@ class BlueprintMigrationCommand extends GeneratorCommand
                     'unsigned',
                 ];
                 if (isset($field['modifier']) && in_array(trim($field['modifier']), $modifierLookup)) {
-                    $segement .= '->'.trim($field['modifier']).'()';
+                    $segment .= '->'.trim($field['modifier']).'()';
                 }
-                $segement .= ";\n".$this->indent;
+                $segment .= ";\n".$this->indent;
             }
 
-            return $segement;
+            return $segment;
         }
 
         return '';
     }
 
-    protected function buildSoftDeletesSegement()
+    protected function buildSoftDeletesSegment()
     {
         $schema = $this->schema;
         if (isset($schema['softDeletes']) && true === $schema['softDeletes']) {

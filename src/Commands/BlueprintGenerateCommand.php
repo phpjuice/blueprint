@@ -25,7 +25,7 @@ class BlueprintGenerateCommand extends Command
     /**
      * The blueprint of class being generated.
      *
-     * @var string
+     * @var object
      */
     protected $blueprint;
 
@@ -39,7 +39,7 @@ class BlueprintGenerateCommand extends Command
         if ($blueprint = $this->alreadyExists()) {
             $this->blueprint = collect($blueprint);
 
-            // genreate all the scaffolding
+            // generate all the scaffolding
             $this->createTest();
             $this->createModel();
             $this->createRequest();
@@ -57,7 +57,7 @@ class BlueprintGenerateCommand extends Command
             return 0;
         }
 
-        if ($this->confirm('This crud dosn\'t exists yet!, Do you wish to create it?')) {
+        if ($this->confirm('This crud doesn\'t exists yet!, Do you wish to create it?')) {
             $this->call('blueprint:make', ['name' => $this->argument('name')]);
         }
 
@@ -133,7 +133,7 @@ class BlueprintGenerateCommand extends Command
             '--force' => true,
         ];
         if ((bool) $this->blueprint->get('crud')['isApi']) {
-            // creates eather an api or default controller
+            // creates either an api or default controller
             $this->call('blueprint:controller:api', $args);
 
             return $this;

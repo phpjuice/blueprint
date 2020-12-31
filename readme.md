@@ -140,12 +140,12 @@ php artisan blueprint:generate Post
 
 After running this command a the following files will be generated :
 
--   Controller
--   Model
--   Request
--   Response
--   Migration
--   Test
+- Controller
+- Model
+- Request
+- Response
+- Migration
+- Test
 
 And by default, the generator will attempt to append the crud route to your Route file. following this snippet
 `Route::apiResource('route-name', 'controller-name');`
@@ -249,7 +249,7 @@ Please see the [changelog](changelog.md) for more information on what has change
 
 ## Contributing
 
-Please see [contributing.md](contributing.md) for details and a todolist.
+Please see [contributing.md](contributing.md) for details.
 
 ## Security
 
@@ -257,7 +257,7 @@ If you discover any security related issues, please email author instead of usin
 
 ## Credits
 
--   [AppzCoder](https://github.com/appzcoder/crud-generator)
+- [AppzCoder](https://github.com/appzcoder/crud-generator)
 
 ## License
 

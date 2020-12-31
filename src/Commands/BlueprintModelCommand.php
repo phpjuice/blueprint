@@ -180,6 +180,6 @@ class BlueprintModelCommand extends Generator
         $argsStr = rtrim($argsStr, ',');
         $argsStr = "'".str_replace(',', "','", $argsStr)."'";
 
-        return  sprintf($code, $relationshipName, $relationshipType, $argsStr);
+        return sprintf($code, $relationshipName, $relationshipType, $argsStr);
     }
 }
