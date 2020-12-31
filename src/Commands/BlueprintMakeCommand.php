@@ -3,6 +3,7 @@
 namespace PHPJuice\Blueprint\Commands;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class BlueprintMakeCommand extends Command
 {
@@ -47,7 +48,7 @@ class BlueprintMakeCommand extends Command
     }
 
     /**
-     * return the formated curd name.
+     * return the formatted curd name.
      */
     protected function runInFilesMode()
     {
@@ -75,11 +76,11 @@ class BlueprintMakeCommand extends Command
     protected function replacePlaceholders(&$stub)
     {
         $crudName = $this->getCrudName();
-        $crudNamespace = str_plural($crudName);
-        $controllerName = str_plural($crudName).'Controller';
+        $crudNamespace = Str::plural($crudName);
+        $controllerName = Str::plural($crudName).'Controller';
         $isAPI = ($this->option('api')) ? 'true' : 'false';
-        $tableName = str_plural(snake_case($crudName));
-        $routeName = str_plural(snake_case($crudName, '-'));
+        $tableName = Str::plural(Str::snake($crudName));
+        $routeName = Str::plural(Str::snake($crudName, '-'));
 
         // replace crud placeholders
         $stub = str_replace('{{crud.name}}', $crudName, $stub);
@@ -148,7 +149,7 @@ class BlueprintMakeCommand extends Command
     protected function generateBlueprintFile($stub)
     {
         $crudName = $this->getCrudName();
-        $fileName = snake_case($crudName, '_');
+        $fileName = Str::snake($crudName, '_');
         // get blueprint path
         $path = $this->getBlueprintPath($fileName);
         if (File::put($path, $stub)) {

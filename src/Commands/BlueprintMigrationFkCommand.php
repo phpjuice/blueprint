@@ -39,7 +39,7 @@ class BlueprintMigrationFkCommand extends GeneratorCommand
     /**
      * The schema of the class being generated.
      *
-     * @var string
+     * @var array
      */
     protected $keys;
 
@@ -81,7 +81,7 @@ class BlueprintMigrationFkCommand extends GeneratorCommand
         $stub = $this->files->get($this->getStub());
         // get table name
         $tableName = $this->argument('name');
-        // genreate table name
+        // generate table name
         $className = $this->generateClassName($tableName);
 
         // get schema
@@ -144,7 +144,7 @@ class BlueprintMigrationFkCommand extends GeneratorCommand
     /**
      * Gets Foreign key names from schema.
      *
-     * @return string
+     * @return array
      */
     protected function getForeignKeyNames()
     {

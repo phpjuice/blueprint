@@ -3,13 +3,14 @@
 namespace PHPJuice\Blueprint\Commands;
 
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Str;
 
 class Generator extends GeneratorCommand
 {
     /**
      * The blueprint of class being generated.
      *
-     * @var string
+     * @var object
      */
     protected $blueprint;
 
@@ -21,7 +22,7 @@ class Generator extends GeneratorCommand
     public function handle()
     {
         if (!$this->option('blueprint')) {
-            $this->error('must provide a blueprint for this genrator to work!');
+            $this->error('must provide a blueprint for this generator to work!');
 
             return 0;
         }
@@ -36,7 +37,7 @@ class Generator extends GeneratorCommand
      */
     protected function getStub()
     {
-        $name = snake_case($this->type, '-').'.stub';
+        $name = Str::snake($this->type, '-').'.stub';
 
         return config('blueprint.custom_template')
         ? config('blueprint.path').$name
@@ -165,7 +166,7 @@ class Generator extends GeneratorCommand
     }
 
     /**
-     * Is a restfull api crud.
+     * Is a restful api crud.
      *
      * @return bool
      */

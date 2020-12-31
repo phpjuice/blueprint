@@ -4,6 +4,7 @@ namespace PHPJuice\Blueprint\Commands;
 
 use Illuminate\Console\Command as IlluminateCommand;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class Command extends IlluminateCommand
 {
@@ -16,7 +17,7 @@ class Command extends IlluminateCommand
     {
         foreach (File::files($this->getBlueprintsDirectory()) as $file) {
             preg_match('/_create_(\w{1,})_crud_/', $file->getFilename(), $matches);
-            if ($this->getCrudName() === studly_case($matches[1])) {
+            if ($this->getCrudName() === Str::studly($matches[1])) {
                 return $this->handleJson(File::get($file));
             }
         }
@@ -37,15 +38,15 @@ class Command extends IlluminateCommand
     }
 
     /**
-     * return the formated curd name.
+     * return the formatted curd name.
      *
      * @return string curd name
      */
     protected function getCrudName()
     {
-        return  $this->option('precise') ?
+        return $this->option('precise') ?
                     $this->argument('name') :
-                    str_singular(preg_replace('/crud$/i', '', $this->argument('name')));
+                    Str::singular(preg_replace('/crud$/i', '', $this->argument('name')));
     }
 
     /**
